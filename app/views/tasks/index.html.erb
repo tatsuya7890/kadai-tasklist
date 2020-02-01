@@ -2,7 +2,7 @@
 
 <ul>
   <% @tasks.each do |t_data| %>
-    <li><%= link_to t_data.id, t_data%> : <%= t_data.content %> </li>
+    <li><%= link_to t_data.id, t_data%> : ステータス &gt; <%= t_data.status %>　<%= t_data.content %> </li>
   <% end %>
 </ul>
 
