@@ -1,0 +1,9 @@
+<h1> タスク一覧 </h1>
+
+<ul>
+  <% @tasks.each do |t_data| %>
+    <li><%= link_to t_data.id, t_data%> : <%= t_data.content %> </li>
+  <% end %>
+</ul>
+
+<%= link_to 'タスク追加', new_task_path %>
