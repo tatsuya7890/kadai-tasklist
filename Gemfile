@@ -63,3 +63,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 #kaminari というページネーション用の Gem 
 gem 'kaminari'
+
+#pg は PostgreSQL と Rails を連携するための Gem
+group :production do
+  gem 'pg', '>= 0.18', '< 2.0'
+end
