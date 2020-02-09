@@ -1,17 +1,18 @@
 Rails.application.routes.draw do
 
-  get 'users/index'
-  get 'users/show'
-  get 'users/new'
-  get 'users/create'
+  get 'sessions/new'
+  get 'sessions/create'
+  get 'sessions/destroy'
   #トップページへのルーティング
   root to: 'toppages#index'
 
   #アカウント新規作成ページへ
   get 'signup', to: 'users#new'
   
-  #ログインページへ
-  #get 'login', to: 'user#?'
+  #ログイン処理
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
   
   #ユーザ認証用のルーティング(index:一覧表示、show:詳細表示、new:新規ページ、create：DBへの新規登録処理)
   resources :users, only: [:index, :show, :new, :create]
