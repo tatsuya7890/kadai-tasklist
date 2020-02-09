@@ -1,11 +1,20 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  get 'users/index'
+  get 'users/show'
+  get 'users/new'
+  get 'users/create'
   #トップページへのルーティング
-  root to: 'tasks#index'
+  root to: 'toppages#index'
 
-  #7つのルーティング設定の省略形(show,create,update,destroy,index,new,edit) 
-  resources :tasks
+  #アカウント新規作成ページへ
+  get 'signup', to: 'users#new'
+  
+  #ログインページへ
+  #get 'login', to: 'user#?'
+  
+  #ユーザ認証用のルーティング(index:一覧表示、show:詳細表示、new:新規ページ、create：DBへの新規登録処理)
+  resources :users, only: [:index, :show, :new, :create]
 
 =begin
   # CRUD
