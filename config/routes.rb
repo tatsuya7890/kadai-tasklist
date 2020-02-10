@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
 
+  #セッション処理
   get 'sessions/new'
   get 'sessions/create'
   get 'sessions/destroy'
-  #トップページへのルーティング
-  root to: 'toppages#index'
 
+  #トップページへのルーティング
+  root to: 'tasks#index'
+  
+  
   #アカウント新規作成ページへ
   get 'signup', to: 'users#new'
   
@@ -13,9 +16,14 @@ Rails.application.routes.draw do
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
-  
+
   #ユーザ認証用のルーティング(index:一覧表示、show:詳細表示、new:新規ページ、create：DBへの新規登録処理)
   resources :users, only: [:index, :show, :new, :create]
+
+  #タスク処理リストのルーティング(一覧表示、新規投稿、削除、編集、更新)
+  resources :tasks, only: [:index, :create, :destroy, :edit, :update]
+
+
 
 =begin
   # CRUD

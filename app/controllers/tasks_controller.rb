@@ -1,8 +1,11 @@
 class TasksController < ApplicationController
+  
 
   def index
-    #全てなので複数形(sあり 定義)
-    @tasks = Task.all
+    if logged_in?
+      @task = current_user.tasks.build
+      @tasks = current_user.tasks.order(id: :desc).page(params[:page]).per(20)
+    end
   end
 
   def show
@@ -15,31 +18,32 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
-    
+    @task = current_user.tasks.build(task_params)
+    @tasks = current_user.tasks.order(id: :desc).page(params[:page]).per(20)
     if @task.save
-      flash[:success] = 'taskが登録されました'
-      redirect_to @task
+      flash[:success] = 'taskが登録されましたで'
+      redirect_to root_url
     else 
-      flash.now[:danger] = "登録失敗"
-      render :new
+    #  @task = current_user.tasks.order(id: :desc).page(params[:page])
+      flash.now[:danger] = "task登録ができませんでした。"
+      render 'tasks/index'
     end
-
   end
 
   def edit
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
   end
 
   def update
     @task = Task.find(params[:id])
+    @tasks = current_user.tasks.order(id: :desc).page(params[:page]).per(20)
     
     if @task.update(task_params)
       flash[:success] = 'taskが登録されました'
-      redirect_to @task
+      redirect_to root_url
     else 
-      flash.now[:danger] = "登録失敗"
-      render :new
+      flash.now[:danger] = "task登録ができませんでした。"
+      render 'tasks/edit'
     end
   end
 
@@ -52,6 +56,7 @@ class TasksController < ApplicationController
   end
 
   private
+  
   #Strong Parameter
   def task_params
     params.require(:task).permit(:content, :status)

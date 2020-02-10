@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     #ログイン判定( private参照)
     if login(email, password)
       flash[:success] = 'ログインに成功しました'
-      redirect_to @user
+      redirect_to root_url
     else
       flash.now[:danger] = 'ログインできませんでした'
       render :new
