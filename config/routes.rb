@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   #トップページへのルーティング
   root to: 'tasks#index'
   
-  
   #アカウント新規作成ページへ
   get 'signup', to: 'users#new'
   
@@ -18,14 +17,15 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
 
   #ユーザ認証用のルーティング(index:一覧表示、show:詳細表示、new:新規ページ、create：DBへの新規登録処理)
-  resources :users, only: [:index, :show, :new, :create]
+  resources :users, only: [:show, :new, :create]
 
-  #タスク処理リストのルーティング(一覧表示、新規投稿、削除、編集、更新)
-  resources :tasks, only: [:index, :create, :destroy, :edit, :update]
+  #タスク処理リストのルーティング
+  resources :tasks
 
-
+end
 
 =begin
+  ##以下、参考情報
   # CRUD
   get 'tasks/:id', to: 'tasks#show'
   post 'tasks', to: 'tasks#create'
@@ -42,4 +42,4 @@ Rails.application.routes.draw do
   get 'tasks/:id/edit', to: 'tasks#edit'
 =end
 
-end
+

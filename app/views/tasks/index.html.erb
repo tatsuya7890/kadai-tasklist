@@ -1,23 +1,13 @@
 
-<!-- ログインしている場合の処理-->
-<% if logged_in? %>
-  
   <p>ログイン中のユーザ：<%= current_user.name %></p>
-    <!--　タスクの一覧表示 -->
+
+  <!--　新規作成ページリンク -->
   <div class="row">
     <aside class="col-sm-4">
-      <%= form_with(model: @task, local: true) do |f| %>
-    
-        <div class="form-group"> 
-          <%= f.label :status, 'ステータス' %>
-          <%= f.text_area :status, class: 'form-control', rows: 1 %>
-          <%= f.label :content, 'やること' %>
-          <%= f.text_area :content, class: 'form-control', rows: 5 %>
-        </div>
-        <%= f.submit '保存', class: 'btn btn-primary btn-block' %>
-      <% end %>
+      <p><%= link_to 'タスク新規作成ページへ', new_task_path, class: 'btn btn-lg btn-primary' %></p>
     </aside>
     
+    <!--　タスクの一覧表示 -->
     <div class="col-sm-8">
       <ul class="nav nav-tabs nav-justified mb-3">
         <li class="nav-item"><a href="#" class="nav-link">タスクリスト</a></li>
@@ -45,19 +35,3 @@
         </ul>
     </div>
   </div>
-  
-  
-<!-- 未ログインの場合の処理-->
-<% else%>
-  <div class="center jumbotron">
-    <div class="text-center">
-      <h1>タスクリストのWebアプリケーション</h1>
-      <hr>
-      <p><%= link_to 'ログイン認証ページへ', login_path, class: 'btn btn-lg btn-primary' %></p>
-  
-      <p><%= link_to '新規アカウント作成', signup_path, class: 'btn btn-lg btn-info' %></p>
-      
-    </div>
-  </div>
-
-<% end %>

@@ -1,10 +1,15 @@
 class TasksController < ApplicationController
-  
+
+  #事前処理（ログインしているか確認）
+  before_action :require_user_logged_in
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   def index
     if logged_in?
       @task = current_user.tasks.build
       @tasks = current_user.tasks.order(id: :desc).page(params[:page]).per(20)
+    else
+      render 'sessions/new'
     end
   end
 
@@ -21,7 +26,7 @@ class TasksController < ApplicationController
     @task = current_user.tasks.build(task_params)
     @tasks = current_user.tasks.order(id: :desc).page(params[:page]).per(20)
     if @task.save
-      flash[:success] = 'taskが登録されましたで'
+      flash[:success] = 'taskが登録されました'
       redirect_to root_url
     else 
     #  @task = current_user.tasks.order(id: :desc).page(params[:page])
@@ -51,7 +56,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.destroy
     
-    flash[:success] = 'やることが削除されました'
+    flash[:success] = 'taskが削除されました'
     redirect_to tasks_path
   end
 
@@ -60,6 +65,14 @@ class TasksController < ApplicationController
   #Strong Parameter
   def task_params
     params.require(:task).permit(:content, :status)
+  end
+  
+  #正しいユーザかチェック
+  def correct_user
+    @task = current_user.tasks.find_by(id: params[:id])
+    unless @task
+     redirect_to root_url
+    end
   end
 
 end
