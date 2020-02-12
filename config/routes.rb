@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
 
-  #セッション処理
-  get 'sessions/new'
-  get 'sessions/create'
-  get 'sessions/destroy'
-
   #トップページへのルーティング
   root to: 'tasks#index'
   

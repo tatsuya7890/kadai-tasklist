@@ -3,10 +3,6 @@ class UsersController < ApplicationController
   #事前処理（ログインしているか確認）
   before_action :require_user_logged_in, only: [:show]
 
-  def index
-    #@users = User.order(id: :desc).page(params[:page]).per(20)
-  end
-
   def show
     @user = User.find(params[:id])
   end
