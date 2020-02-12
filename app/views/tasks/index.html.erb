@@ -1,37 +1,38 @@
 
-  <p>ログイン中のユーザ：<%= current_user.name %></p>
+<p>ログイン中のユーザ：<%= current_user.name %></p>
 
-  <!--　新規作成ページリンク -->
-  <div class="row">
-    <aside class="col-sm-4">
-      <p><%= link_to 'タスク新規作成ページへ', new_task_path, class: 'btn btn-lg btn-primary' %></p>
-    </aside>
-    
-    <!--　タスクの一覧表示 -->
-    <div class="col-sm-8">
-      <ul class="nav nav-tabs nav-justified mb-3">
-        <li class="nav-item"><a href="#" class="nav-link">タスクリスト</a></li>
-      </ul>
-      <ul class="list-unstyled">
-        <% @tasks.each do |task| %>
-            <div class="media-body">
-              <div>
-                <%= link_to task.user.name, user_path(task.user) %> <span class="text-muted">posted at <%= task.created_at %></span>
-              </div>
-              <div>
-                <p class="mb-0">ステータス：<%= task.status %></p>
-                <p class="mb-0">やること：<%= task.content %></p>
-              </div>
-              <div>
-                <% if current_user == task.user %>
-                  <%= link_to "編集", edit_task_path(task.id), class: 'btn btn-primary btn-sm' %>
-
-                  <%= link_to "削除", task, method: :delete, data: { confirm: "削除しますか?" }, class: 'btn btn-danger btn-sm' %>
-                <% end %>
-              </div>
+<!--　新規作成ページリンク -->
+<div class="row">
+  <aside class="col-sm-4">
+    <p><%= link_to 'タスク新規作成ページへ', new_task_path, class: 'btn btn-lg btn-primary' %></p>
+  </aside>
+  
+  <!--　タスクの一覧表示 -->
+  <div class="col-sm-8">
+    <ul class="nav nav-tabs nav-justified mb-3">
+      <li class="nav-item">タスクリスト</li>
+    </ul>
+    <ul class="list-unstyled">
+      <% @tasks.each do |task| %>
+          <div class="media-body">
+      <!--      <div>
+              < link_to task.user.name, user_path(task.user) %> <span class="text-muted">posted at < # task.created_at %></span>
+            </div> -->
+            <div>
+              <p class="mb-0">No：<%= link_to task.id, task_path(task.id) %></p>
+              <p class="mb-0">ステータス：<%= task.status %></p>
+              <p class="mb-0">やること：<%= task.content %></p>
             </div>
-        <% end %>
-        <%= paginate @tasks %>
-        </ul>
-    </div>
+            <div>
+              <% if current_user == task.user %>
+                <%= link_to "編集", edit_task_path(task.id), class: 'btn btn-primary btn-sm' %>
+
+                <%= link_to "削除", task, method: :delete, data: { confirm: "削除しますか?" }, class: 'btn btn-danger btn-sm' %>
+              <% end %>
+            </div>
+          </div>
+      <% end %>
+      <%= paginate @tasks %>
+      </ul>
   </div>
+</div>

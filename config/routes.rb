@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
 
   #ユーザ認証用のルーティング(index:一覧表示、show:詳細表示、new:新規ページ、create：DBへの新規登録処理)
-  resources :users, only: [:show, :new, :create]
+  resources :users, only: [:new, :create]
 
   #タスク処理リストのルーティング
   resources :tasks
